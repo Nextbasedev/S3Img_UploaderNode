@@ -71,7 +71,6 @@ class S3ImgUploaderNode:
             # Generate a unique filename
             file_name = f"image_{i}_{os.urandom(4).hex()}.png"
             object_key = f"{folder_structure}/{file_name}"
-            link = f"https://cdn.dressr.ai/{folder_structure}/{file_name}"
             if folder_name1 == "maxstudiov2":
                 link = f"https://content.maxstudio.ai/{folder_structure}/{file_name}"
             else:
