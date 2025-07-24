@@ -32,7 +32,7 @@ class S3ImgUploaderNode:
         access_key =  os.getenv("S3_ACCESS_KEY")
         secret_key = os.getenv("S3_SECRET_KEY")
         region = os.getenv("S3_REGION")
-        endpoint_url = os.getenv("S3_ENDPOINT_URL ")
+        endpoint_url = os.getenv("S3_ENDPOINT_URL")
 
         # Generate a unique folder name
    
