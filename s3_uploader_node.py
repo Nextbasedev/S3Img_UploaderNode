@@ -72,16 +72,14 @@ class S3ImgUploaderNode:
             file_name = f"image_{i}_{os.urandom(4).hex()}.png"
             object_key = f"{folder_structure}/{file_name}"
             link = f"https://cdn.dressr.ai/{folder_structure}/{file_name}"
+            if folder_name1 == "maxstudiov2":
+                link = f"https://content.maxstudio.ai/{folder_structure}/{file_name}"
+            else:
+                link = f"https://content.chromastudio.ai/{folder_structure}/{file_name}"
 
             try:
                 # Upload to S3
                 s3.upload_fileobj(buffer, bucket_name, object_key)
-                
-                # Generate preview URL (expires in 1 hour)
-                # preview_url = s3.generate_presigned_url('get_object',
-                #                                         Params={'Bucket': bucket_name,
-                #                                                 'Key': object_key},
-                #                                         ExpiresIn=3600)
                 
                 preview = {
                     "type": "image",
