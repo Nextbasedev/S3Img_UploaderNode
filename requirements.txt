@@ -4,4 +4,3 @@ numpy
 python-dotenv
 git+https://github.com/openai/CLIP.git
 Pillow
-base64
