@@ -28,11 +28,11 @@ class S3ImgUploaderNode:
         load_dotenv()
 
         # Get S3 credentials and configuration
-        bucket_name ="clotheswapper-refimg"
-        access_key =  "a556292c81cb9a8d3074c75255631636"
-        secret_key = "74b10d449163cf0a539b9c84b9ca0e027e9b8df1dafc16c1d378c37e389df9c3"
-        region = "auto"
-        endpoint_url = "https://fe1b8e17bc5bdd46e8a69af12e0b8a67.r2.cloudflarestorage.com"
+        bucket_name = os.getenv("S3_BUCKET_NAME") 
+        access_key =  os.getenv("S3_ACCESS_KEY")
+        secret_key = os.getenv("S3_SECRET_KEY")
+        region = os.getenv("S3_REGION")
+        endpoint_url = os.getenv("S3_ENDPOINT_URL ")
 
         # Generate a unique folder name
    
