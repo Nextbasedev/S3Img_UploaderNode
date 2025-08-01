@@ -59,16 +59,17 @@ class upload_video_to_s3:
 def get_s3_instance():
     try:
         s3_instance = upload_video_to_s3(
-            bucket_name = os.getenv("S3_BUCKET_NAME") 
-            access_key =  os.getenv("S3_ACCESS_KEY")
-            secret_key = os.getenv("S3_SECRET_KEY")
-            region = os.getenv("S3_REGION")
-            endpoint_url = os.getenv("S3_ENDPOINT_URL")
+            bucket_name=os.getenv("S3_BUCKET_NAME"),
+            access_key=os.getenv("S3_ACCESS_KEY"),
+            secret_key=os.getenv("S3_SECRET_KEY"),
+            region=os.getenv("S3_REGION"),
+            endpoint_url=os.getenv("S3_ENDPOINT_URL")
         )
         return s3_instance
     except Exception as e:
         logger.error(f"Failed to create S3 instance: {e}")
         raise
+
 
 S3_INSTANCE = get_s3_instance()
 
