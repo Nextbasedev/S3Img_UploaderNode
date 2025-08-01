@@ -4,6 +4,8 @@ import uuid
 import logging
 from botocore.exceptions import NoCredentialsError
 from PIL import Image
+from dotenv import load_dotenv
+
 
 # Set up logger
 logger = logging.getLogger(__name__)
