@@ -8,7 +8,7 @@ from PIL import Image
 # Set up logger
 logger = logging.getLogger(__name__)
 
-class S3:
+class upload_video_to_s3:
     def __init__(self, region, access_key, secret_key, bucket_name, endpoint_url):
         self.region = region
         self.access_key = access_key
