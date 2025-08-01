@@ -6,10 +6,10 @@ from botocore.exceptions import NoCredentialsError
 from PIL import Image
 from dotenv import load_dotenv
 
-
 # Set up logger
 logger = logging.getLogger(__name__)
 load_dotenv()
+
 class upload_video_to_s3:
     def __init__(self, region, access_key, secret_key, bucket_name, endpoint_url):
         self.region = region
@@ -69,7 +69,6 @@ def get_s3_instance():
     except Exception as e:
         logger.error(f"Failed to create S3 instance: {e}")
         raise
-
 
 S3_INSTANCE = get_s3_instance()
 
