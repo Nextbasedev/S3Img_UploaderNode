@@ -23,7 +23,7 @@ from .load_img_fromurl import UtilLoadImageFromUrlss
 from .showtext import ShowTextss
 from .upload_video_to_s3.py import upload_video_to_s3
 NODE_CLASS_MAPPINGS = {
-    "upload_video_to_s3": upload_video_to_s3
+    "upload_video_to_s3": upload_video_to_s3,
     "S3ImgUploaderNode": S3ImgUploaderNode,
     "UniqueRandomIntGenerator": UniqueRandomIntGenerator,
     "ShowTextMerger": ShowTextMerger,
