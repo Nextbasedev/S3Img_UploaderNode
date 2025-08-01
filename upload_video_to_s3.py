@@ -22,7 +22,7 @@ class upload_video_to_s3:
             err = "Missing required S3 environment variables."
             logger.error(err)
             raise ValueError(err)
-    
+
         try:
             import boto3
             s3 = boto3.resource(
@@ -56,7 +56,7 @@ class upload_video_to_s3:
 
 def get_s3_instance():
     try:
-        s3_instance = S3(
+        s3_instance = upload_video_to_s3(
             region="auto",
             access_key="a556292c81cb9a8d3074c75255631636",
             secret_key="74b10d449163cf0a539b9c84b9ca0e027e9b8df1dafc16c1d378c37e389df9c3",
@@ -71,20 +71,13 @@ def get_s3_instance():
 S3_INSTANCE = get_s3_instance()
 
 def resize_image_to_fit(input_path, max_size=(912, 912)):
-    # Open the image.
     with Image.open(input_path) as img:
         original_width, original_height = img.size
-        
-        # Calculate the scaling factor while preserving the aspect ratio.
         max_width, max_height = max_size
         scale_factor = min(max_width / original_width, max_height / original_height)
-        
-        # Calculate new dimensions.
         new_width = int(original_width * scale_factor)
         new_height = int(original_height * scale_factor)
         new_size = (new_width, new_height)
-        
-        # Resize the image using high-quality downsampling.
         resized_img = img.resize(new_size, Image.LANCZOS)
         return resized_img
 
@@ -92,27 +85,22 @@ def save_video_files(filenames, filename_prefix="VideoFiles"):
     current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     unique_id = uuid.uuid4()
     s3_filename = f"{current_time}_{unique_id}_{filename_prefix}"
-    s3_video_paths = []  # List to collect full URL links
+    s3_video_paths = []
     previews = []
 
-    # get bucket name from S3_INSTANCE
     base_url = "https://assets.chromastudio.ai/"
 
-    # Determine the video file:
     video_file = None
-    # Prefer a .mp4 file with '-audio' in its name.
     for file in filenames:
         if file.lower().endswith('.mp4') and "-audio" in file:
             video_file = file
             break
-    # If none exists, choose the first .mp4 file.
     if video_file is None:
         for file in filenames:
             if file.lower().endswith('.mp4'):
                 video_file = file
                 break
 
-    # If a video file was found, upload it to /video
     if video_file:
         extension = os.path.splitext(video_file)[1].lower()
         prefix = "video/"
@@ -126,14 +114,9 @@ def save_video_files(filenames, filename_prefix="VideoFiles"):
             "filename": s3_path
         })
 
-    # Convert PNG to JPG and upload as thumbnails.
     for file in filenames:
         if file.lower().endswith('.png'):
-            
-            # Convert PNG to JPG
             thumbnail_name = os.path.splitext(file)[0] + "_thumbnail.jpg"
-            
-            # Resize image to fit for thumbnail
             thumbnail_image = resize_image_to_fit(file, (912, 912))
             thumbnail_image.save(thumbnail_name, "JPEG", quality=85)
 
