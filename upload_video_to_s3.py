@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 # Set up logger
 logger = logging.getLogger(__name__)
-
+load_dotenv()
 class upload_video_to_s3:
     def __init__(self, region, access_key, secret_key, bucket_name, endpoint_url):
         self.region = region
